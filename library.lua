@@ -3009,7 +3009,11 @@ function library:Load(options)
             local name = options.name
             local side = options.side and options.side:lower() or "left"
 
-            local column = tab --side == "left" and column1 or column2
+            local column = side == "left" and column1 or column2
+
+            if (side == "tab") then
+                column = tab
+            end
 
             local section = utility.create("Square", {
                 Filled = true,
