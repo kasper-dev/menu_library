@@ -3002,6 +3002,113 @@ function library:Load(options)
             --utility.changeobjecttheme(outline, "Tab Border")
         end)
 
+        function tab:Box(options)
+            utility.table(options)
+            local default = options.default or ""
+            local placeholder = options.placeholder or ""
+            local flag = options.flag or utility.nextflag()
+            local callback = options.callback or function() end
+
+            local box = utility.create("Square", {
+                Filled = true,
+                Thickness = 0,
+                Theme = "Object Background",
+                Size = UDim2.new(1, 0, 0, 14),
+                ZIndex = 7,
+                Parent = sectioncontent
+            })
+
+            utility.outline(box, "Object Border")
+
+            utility.create("Image", {
+                Size = UDim2.new(1, 0, 1, 0),
+                Transparency = 0.5,
+                ZIndex = 8,
+                Parent = box,
+                Data = library.gradient
+            })
+
+            local text = utility.create("Text", {
+                Text = default,
+                Font = Drawing.Fonts.Plex,
+                Size = 13,
+                Position = UDim2.new(0.5, 0, 0, 0),
+                Center = true,
+                Theme = "Text",
+                ZIndex = 9,
+                Outline = true,
+                Parent = box
+            })
+
+            local placeholdertext = utility.create("Text", {
+                Text = placeholder,
+                Font = Drawing.Fonts.Plex,
+                Size = 13,
+                Position = UDim2.new(0.5, 0, 0, 0),
+                Center = true,
+                Theme = "Disabled Text",
+                ZIndex = 9,
+                Outline = true,
+                Parent = box
+            })
+
+            section.Size = UDim2.new(1, 0, 0, sectioncontent.AbsoluteContentSize + 28)
+
+            box.MouseEnter:Connect(function()
+                mouseover = true
+                box.Color = utility.changecolor(library.theme["Object Background"], 3)
+            end)
+
+            box.MouseLeave:Connect(function()
+                mouseover = false
+                box.Color = library.theme["Object Background"]
+            end)
+
+            box.MouseButton1Down:Connect(function()
+                box.Color = utility.changecolor(library.theme["Object Background"], 6)
+            end)
+
+            box.MouseButton1Up:Connect(function()
+                box.Color = mouseover and utility.changecolor(library.theme["Object Background"], 3) or library.theme["Object Background"]
+            end)
+
+            library.createbox(box, text, function(str) 
+                if str == "" then
+                    text.Visible = false
+                    placeholdertext.Visible = true
+                else
+                    placeholdertext.Visible = false
+                    text.Visible = true
+                end
+            end, function(str)
+                library.flags[flag] = str
+                callback(str)
+            end)
+
+            local function set(str)
+                placeholdertext.Visible = str == ""
+                text.Visible = str ~= ""
+
+                text.Color = Color3.fromRGB(200, 200, 200)
+                text.Text = str
+
+                library.flags[flag] = str
+                callback(str)
+            end
+
+            set(default)
+
+            flags[flag] = set
+
+            local boxtypes = utility.table({}, true)
+
+            function boxtypes:Set(str)
+                set(str)
+            end
+
+            return boxtypes
+        end
+
         local tabtypes = utility.table({}, true)
 
         function tabtypes:Section(options)
