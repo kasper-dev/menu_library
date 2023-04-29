@@ -2790,7 +2790,7 @@ function library:Load(options)
     
 
 
-    themes['Default'] = options.Theme
+    themes['Default'] = options.Theme2
    
     self.currenttheme = 'Default'
     self.theme = table.clone(themes['Default'])
