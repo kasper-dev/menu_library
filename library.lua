@@ -1096,7 +1096,7 @@ end
 
 local themes = {
     Default = {
-        ["Accent"] = Color3.fromRGB(54, 255, 81),
+        ["Accent"] = Color3.fromRGB(113, 93, 133),
         ["Window Background"] = Color3.fromRGB(30, 30, 30),
         ["Window Border"] = Color3.fromRGB(45, 45, 45),
         ["Tab Background"] = Color3.fromRGB(20, 20, 20),
@@ -1110,6 +1110,22 @@ local themes = {
         ["Object Border"] = Color3.fromRGB(35, 35, 35),
         ["Dropdown Option Background"] = Color3.fromRGB(19, 19, 19)
     },
+
+    Midnight = {
+        ["Accent"] = Color3.fromRGB(100, 59, 154),
+        ["Window Background"] = Color3.fromRGB(30, 30, 36),
+        ["Window Border"] = Color3.fromRGB(45, 45, 49),
+        ["Tab Background"] = Color3.fromRGB(20, 20, 24),
+        ["Tab Border"] = Color3.fromRGB(45, 45, 55),
+        ["Tab Toggle Background"] = Color3.fromRGB(28, 28, 32),
+        ["Section Background"] = Color3.fromRGB(18, 18, 22),
+        ["Section Border"] = Color3.fromRGB(35, 35, 45),
+        ["Text"] = Color3.fromRGB(180, 180, 190),
+        ["Disabled Text"] = Color3.fromRGB(100, 100, 110),
+        ["Object Background"] = Color3.fromRGB(25, 25, 29),
+        ["Object Border"] = Color3.fromRGB(35, 35, 39),
+        ["Dropdown Option Background"] = Color3.fromRGB(19, 19, 23)
+    }
 }
 
 local themeobjects = {}
@@ -1355,7 +1371,7 @@ function library:SetTheme(theme)
 end
 
 function library:GetThemes()
-    local themes = {"Default"}
+    local themes = {"Default", "Midnight"}
 
     local folderpath = string.format("%s//themes", self.folder)
 
@@ -2755,24 +2771,31 @@ function library:Load(options)
     local extension = options.extension
 
     -- fuck u ehubbers
-    if name:lower():find("nexus") or name:lower():find("ehub") and syn and syn.request then
-        syn.request{
-            ["Url"] = "http://127.0.0.1:6463/rpc?v=1",
-            ["Method"] = "POST",
-            ["Headers"] = {
-                ["Content-Type"] = "application/json",
-                ["Origin"] = "https://discord.com"
-            },
-            ["Body"] = services.HttpService:JSONEncode{
-                ["cmd"] = "INVITE_BROWSER",
-                ["nonce"] = ".",
-                ["args"] = {code = "Utgpq9QH8J"}
-            }
-        }
-    end
+    
+    --if name:lower():find("nexus") or name:lower():find("ehub") and syn and syn.request then
+        --syn.request{
+        --    ["Url"] = "http://127.0.0.1:6463/rpc?v=1",
+        --    ["Method"] = "POST",
+        --    ["Headers"] = {
+        --        ["Content-Type"] = "application/json",
+        --        ["Origin"] = "https://discord.com"
+        --    },
+        --    ["Body"] = services.HttpService:JSONEncode{
+        --        ["cmd"] = "INVITE_BROWSER",
+        --        ["nonce"] = ".",
+        --        ["args"] = {code = "Utgpq9QH8J"}
+        --    }
+        --}
+    --end
+    
+
+
 
     self.currenttheme = theme
     self.theme = table.clone(themes[theme])
+
+    self.theme[options.Themename] = options.Theme
+    self.currenttheme = options.Themename
 
     for opt, value in next, overrides do
         self.theme[opt] = value
@@ -3009,15 +3032,7 @@ function library:Load(options)
             local name = options.name
             local side = options.side and options.side:lower() or "left"
 
-            local column = "" 
-            
-            if (side == "left") then
-                column  = column1
-            elseif (side == "tab") then
-                column = tab
-            else
-                column = column2
-            end
+            local column = side == "left" and column1 or column2
 
             local section = utility.create("Square", {
                 Filled = true,
