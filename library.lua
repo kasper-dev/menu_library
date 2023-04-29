@@ -1142,7 +1142,12 @@ function utility.outline(obj, color)
     outline.Position = UDim2.new(0, -1, 0, -1)
     outline.ZIndex = obj.ZIndex - 1
     
-    outline.Color = Color3.fromHSV(tick() * 24 % 255/255, 1, 1)
+    if typeof(color) == "Color3" then
+        outline.Color = color
+    else
+        outline.Color = library.theme[color]
+        themeobjects[outline] = color
+    end
 
     outline.Parent = obj
     outline.Filled = true
@@ -2757,7 +2762,6 @@ end
 
 function library:CreateTheme(theme)
     themes['CustomTheme'] = theme
-
     self:SetTheme('CustomTheme')
 end
 
