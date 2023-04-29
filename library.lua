@@ -2760,10 +2760,9 @@ function library:Watermark(str)
     return watermarktypes
 end
 
-function library:CreateTheme(theme)
-    print('Creating theme: NiceTheme...')
-    themes['NiceTheme'] = theme
-    self:SetTheme('NiceTheme')
+function library:CreateTheme(name, theme)
+    themes[name] = theme
+    self:SetTheme(name)
 end
 
 function library:Load(options)
