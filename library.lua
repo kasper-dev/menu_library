@@ -1112,6 +1112,14 @@ local themes = {
     },
 }
 
+local speed = 1
+while true do
+	for i = 0,1,0.001*speed do
+		themes.Default["Accent"] = Color3.fromHSV(i, 1, 1)
+		wait()
+	end
+end
+
 local themeobjects = {}
 
 local library = utility.table({theme = table.clone(themes.Default), folder = "vozoiduilib", extension = "vozoid", flags = {}, open = true, keybind = Enum.KeyCode.RightShift, mousestate = services.InputService.MouseIconEnabled, cursor = nil, holder = nil, connections = {}}, true)
@@ -3009,7 +3017,15 @@ function library:Load(options)
             local name = options.name
             local side = options.side and options.side:lower() or "left"
 
-            local column = side == "left" and column1 or column2
+            local column = "" 
+            
+            if (side == "left") then
+                column  = column1
+            elseif (side == "tab") then
+                column = tab
+            else
+                column = column2
+            end
 
             local section = utility.create("Square", {
                 Filled = true,
