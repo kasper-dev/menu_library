@@ -2790,11 +2790,13 @@ function library:Load(options)
     
 
 
-    themes['Default'] = options.Theme2
-   
-    self.currenttheme = 'Default'
-    self.theme = table.clone(themes['Default'])
+    themes[options.ThemeName] = options.Theme2
     
+    self.currenttheme = options.ThemeName
+    self.theme = table.clone(themes[options.ThemeName])
+    print(self.theme)
+    print(options.Theme2)
+    print(self.currenttheme)
 
     for opt, value in next, overrides do
         self.theme[opt] = value
