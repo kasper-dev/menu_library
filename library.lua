@@ -2760,6 +2760,12 @@ function library:Watermark(str)
     return watermarktypes
 end
 
+function library:CreateTheme(theme)
+    print('Creating theme: NiceTheme...')
+    themes['NiceTheme'] = theme
+    self:SetTheme('NiceTheme')
+end
+
 function library:Load(options)
     utility.table(options)
     local name = options.name
@@ -2789,13 +2795,9 @@ function library:Load(options)
     --end
     
     print(options.Theme2)
-
-    themes['NiceTheme'] = options.Theme2
     
     self.currenttheme = 'Default'
     self.theme = table.clone(themes['Default'])
-    
-    self:SetTheme('NiceTheme')
 
     print(self.theme)
     print(self.currenttheme)
