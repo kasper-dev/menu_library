@@ -2788,9 +2788,9 @@ function library:Load(options)
         --}
     --end
     
+    print(options.Theme2)
 
-
-    themes.NiceTheme = options.Theme2
+    themes['NiceTheme'] = options.Theme2
     
     self.currenttheme = 'Default'
     self.theme = table.clone(themes['Default'])
