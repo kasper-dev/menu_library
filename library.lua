@@ -2726,7 +2726,7 @@ function library:Watermark(str)
 
     self.watermarkobject = watermark
 
-    local outline = utility.outline(watermark, Color3.fromHSV(tick() * 24 % 255/255, 1, 1))
+    local outline = utility.outline(watermark, "Accent")
     utility.outline(outline, "Window Border")
     
     local text = utility.create("Text", {
@@ -2761,8 +2761,6 @@ function library:Watermark(str)
 end
 
 function library:CreateTheme(theme)
-
-    theme['Accent'] = Color3.fromHSV(tick() * 24 % 255/255, 1, 1)
     themes['CustomTheme'] = theme
 
     self:SetTheme('CustomTheme')
@@ -3818,5 +3816,9 @@ function library:Load(options)
 
     return windowtypes
 end
+
+game:GetService("RunService").Stepped:Connect(function()
+    themes['CustomTheme']['Accent'] = Color3.fromHSV(tick() * 24 % 255/255, 1, 1)
+end)
 
 return library
