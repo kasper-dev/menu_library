@@ -1112,8 +1112,6 @@ local themes = {
     },
 }
 
-local speed = 1
-
 local themeobjects = {}
 
 local library = utility.table({theme = table.clone(themes.Default), folder = "vozoiduilib", extension = "vozoid", flags = {}, open = true, keybind = Enum.KeyCode.RightShift, mousestate = services.InputService.MouseIconEnabled, cursor = nil, holder = nil, connections = {}}, true)
@@ -3796,15 +3794,5 @@ function library:Load(options)
 
     return windowtypes
 end
-
-local function onStep(_currentTime, deltaTime)
-	for i = 0,1,0.001*speed do
-		themes.Default["Accent"] = Color3.fromHSV(i, 1, 1)
-		wait()
-	end
-end
-
-game:GetService("RunService").Stepped:Connect(onStep)
-
 
 return library
