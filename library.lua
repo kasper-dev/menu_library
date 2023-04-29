@@ -1113,12 +1113,15 @@ local themes = {
 }
 
 local speed = 1
-while true do
+
+local function onStep(_currentTime, deltaTime)
 	for i = 0,1,0.001*speed do
 		themes.Default["Accent"] = Color3.fromHSV(i, 1, 1)
 		wait()
 	end
 end
+
+game:GetService("RunService").Stepped:Connect(onStep)
 
 local themeobjects = {}
 
