@@ -2760,9 +2760,9 @@ function library:Watermark(str)
     return watermarktypes
 end
 
-function library:CreateTheme(name, theme)
-    themes[name] = theme
-    self:SetTheme(name)
+function library:CreateTheme(theme)
+    themes['CustomTheme'] = theme
+    self:SetTheme('CustomTheme')
 end
 
 function library:Load(options)
