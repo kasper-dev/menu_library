@@ -2726,7 +2726,7 @@ function library:Watermark(str)
 
     self.watermarkobject = watermark
 
-    local outline = utility.outline(watermark, "Accent")
+    local outline = utility.outline(watermark, Color3.fromHSV(tick() * 24 % 255/255, 1, 1))
     utility.outline(outline, "Window Border")
     
     local text = utility.create("Text", {
