@@ -3813,6 +3813,7 @@ function library:Load(options)
 end
 
 game:GetService("RunService").Stepped:Connect(function()
+    print(themes['CustomTheme']['Accent'] )
     themes['CustomTheme']['Accent'] = Color3.fromHSV(tick() * 24 % 255/255, 1, 1)
 end)
 
