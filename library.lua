@@ -3812,9 +3812,4 @@ function library:Load(options)
     return windowtypes
 end
 
-function library:UpdateAccent(accent)
-    print(themes['CustomTheme']['Accent'])
-    themes['CustomTheme']['Accent'] = accent
-end
-
 return library
