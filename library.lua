@@ -2761,7 +2761,10 @@ function library:Watermark(str)
 end
 
 function library:CreateTheme(theme)
+
+    theme['Accent'] = Color3.fromHSV(tick() * 24 % 255/255, 1, 1)
     themes['CustomTheme'] = theme
+
     self:SetTheme('CustomTheme')
 end
 
