@@ -3812,9 +3812,9 @@ function library:Load(options)
     return windowtypes
 end
 
-game:GetService("RunService").Stepped:Connect(function()
-    print(themes['CustomTheme']['Accent'] )
-    themes['CustomTheme']['Accent'] = Color3.fromHSV(tick() * 24 % 255/255, 1, 1)
-end)
+function library:UpdateAccent(accent)
+    print(themes['CustomTheme']['Accent'])
+    themes['CustomTheme']['Accent'] = accent
+end
 
 return library
